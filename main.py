@@ -135,7 +135,7 @@ def plot_general_pace_distribution():
 
 st.title("📊 Projeto de Análise de Dados Usando a API da World Triathlon")
 st.markdown("""
-Bem-vindo ao Análise de Dados de Triathlon
+Bem-vindo
 
 Esta plataforma foi desenvolvida para explorar tendências de atletas e eventos globais, utilizando dados históricos da API oficial da World Triathlon.
 """)
