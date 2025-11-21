@@ -332,6 +332,12 @@ df_medias = pd.DataFrame(medias_finais).T
 df_medias.index.name = 'etapa'
 print("\nDataFrame das Médias Finais:")
 print(df_medias)
+MEDIAS_CSV_PATH = RESULTS_FILE.parent / f"athlete_{ATHLETE_ID}_medias_standard.csv"
+
+# Salva o DataFrame final em CSV
+df_medias.to_csv(MEDIAS_CSV_PATH)
+
+print(f"\n💾 Médias de tempo salvas em: {MEDIAS_CSV_PATH.name}")
 
 # --- 5. COMPARAÇÃO COM A MÉDIA GERAL DO ESPORTE ---
 

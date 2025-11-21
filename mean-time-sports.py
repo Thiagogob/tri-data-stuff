@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import os
 import numpy as np
+from pathlib import Path # Certifique-se de que esta linha está no topo do seu script
 
 # --- 1. FUNÇÕES DE CONVERSÃO E VALIDAÇÃO ---
 
@@ -164,5 +165,10 @@ for esporte, tempos in tempos_acumulados.items():
 # Opcional: Converter o resultado final para um DataFrame para fácil análise
 df_medias = pd.DataFrame(medias_finais).T
 df_medias.index.name = 'etapa'
+
+MEDIAS_CSV_PATH = Path("data") / f"medias_standard.csv"
+
+df_medias.to_csv(MEDIAS_CSV_PATH)
+
 print("\nDataFrame das Médias Finais:")
 print(df_medias)

@@ -517,3 +517,75 @@ def get_all_athletes(per_page: int = 10, force_start_page: int = 1) -> List[Dict
         json.dump(all_athletes, f)
         
     return all_athletes
+
+def get_event_title(event_id: int) -> str:
+    """
+    Busca o título de um evento específico (event_id) na API/cache.
+    Acessa o endpoint /v1/events/{event_id} e extrai o título de dentro do envelope 'data'.
+    """
+    # Define o caminho de salvamento para o título
+    saving_dir = data_dir / "event_titles"
+    saving_path = saving_dir / f"event_{event_id}_title.json"
+    saving_path.parent.mkdir(parents=True, exist_ok=True) 
+
+    # 1. Verifica se o cache existe
+    if saving_path.exists():
+        with open(saving_path, 'r') as f:
+            res = json.load(f)
+        return res.get('event_title', 'Título Não Encontrado (Cache)') if res else 'Título Não Encontrado'
+
+    # 2. Faz a requisição à API
+    url_suffix = f"events/{event_id}"
+    print(f"📡 Solicitando título da API para Evento ID: {event_id}")
+    
+    res = get_request(url_suffix=url_suffix)
+    
+    # 3. Trata a resposta (envelope 'data')
+    event_data = res.get('data', {}) if isinstance(res, dict) else {}
+    event_title = event_data.get('event_title', 'Título Não Encontrado')
+    
+    # 4. Salva o título no cache
+    with open(saving_path, "w") as f:
+        json.dump({'event_title': event_title}, f)
+        
+    return event_title
+
+# Dentro do utils_itu.py
+
+PROGRAM_DETAILS_DIR = Path('data') / "program_details"
+
+def fetch_and_cache_program_details(event_id: int, prog_id: int) -> dict:
+    """
+    Faz a requisição para /events/{event_id}/programs/{prog_id},
+    salva o conteúdo do campo 'data' em program_details, e retorna os detalhes.
+    """
+    # 1. Define o caminho de salvamento com o padrão de nomenclatura
+    saving_path = PROGRAM_DETAILS_DIR / f"event_{event_id}_prog_{prog_id}_details.json"
+    PROGRAM_DETAILS_DIR.mkdir(parents=True, exist_ok=True) 
+
+    # 2. Verifica o Cache
+    if saving_path.exists():
+        # print(f"✅ Cache exists: {saving_path.name}")
+        with open(saving_path, 'r') as f:
+            details = json.load(f)
+        return details if details is not None else {}
+
+    # 3. Faz a requisição à API
+    url_suffix = f"events/{event_id}/programs/{prog_id}"
+    print(f"📡 Solicitando Detalhes do Programa: {event_id}/{prog_id}")
+    
+    res = get_request(url_suffix=url_suffix)
+    
+    # 4. Extração do Envelope e Salvamento
+    if res and isinstance(res, dict):
+        # A API retorna os detalhes dentro da chave 'data' para este endpoint
+        program_details = res.get('data', {}) 
+        
+        # Salva o conteúdo do 'data' no arquivo (sem o envelope externo)
+        with open(saving_path, "w") as f:
+            json.dump(program_details, f)
+            
+        return program_details
+    else:
+        print(f"❌ Falha ao obter detalhes para {event_id}/{prog_id}. Resposta: {res}")
+        return {}

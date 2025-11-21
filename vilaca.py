@@ -286,6 +286,16 @@ slope, intercept, r_value, p_value, std_err = linregress(X, Y)
 # Calcula a linha de tendência (Y = a*X + b)
 line_of_best_fit = slope * X + intercept
 
+df_reg['line_of_best_fit'] = line_of_best_fit
+
+# Define o caminho de salvamento para o DataFrame filtrado de regressão
+REGRESSION_DATA_CSV = Path('data') / "athlete_results" / f"athlete_{ATHLETE_ID}_performance_trend.csv"
+
+# Salva as colunas necessárias (Datas, Segundos e Linha de Tendência)
+df_reg[['event_date_dt', 'total_time_s_mean', 'line_of_best_fit']].to_csv(REGRESSION_DATA_CSV, index=False)
+
+print(f"\n💾 Dados de tendência salvos em: {REGRESSION_DATA_CSV.name}")
+
 # --- 3. VISUALIZAÇÃO E INTERPRETAÇÃO ---
 
 fig, ax = plt.subplots(figsize=(12, 6))
@@ -333,9 +343,24 @@ plt.close(fig)
 
 
 # --- 4. INTERPRETAÇÃO DA TENDÊNCIA ---
+REGRESSION_SUMMARY_JSON = Path('data') / "athlete_results" / f"athlete_{ATHLETE_ID}_regressao_sumario.json"
 
 # Converte a inclinação para mudança de segundos por ano
 slope_annual_s = slope * 365.25
+
+regressao_sumario = {
+    'athlete_id': ATHLETE_ID,
+    'nome_atleta': NOME_ATLETA,
+    'slope_annual_s': slope_annual_s,
+    'p_value': p_value,
+    # Adicione outros metadados se necessário
+}
+
+# Salva o sumário em JSON
+with open(REGRESSION_SUMMARY_JSON, 'w') as f:
+    json.dump(regressao_sumario, f, indent=4)
+
+print(f"\n💾 Sumário de regressão salvo em: {REGRESSION_SUMMARY_JSON.name}")
 
 print(f"\nGráfico de tendência salvo como: {plot_filename}")
 print("\n--- ANÁLISE DE REGRESSÃO ---")

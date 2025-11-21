@@ -10,24 +10,9 @@ if caminho_scripts not in sys.path:
     print(f"✅ Diretório adicionado ao sys.path: {caminho_scripts}")
 
 # Verifica se os imports funcionam
-from utils import load_config
+from utils_itu import get_athlete_info
 from utils_events import get_events_df
 print("✅ Funções importadas com sucesso.")
 
 # A função get_events_df() deve carregar a configuração e começar a trabalhar.
-print("Iniciando a coleta, processamento e limpeza dos dados de eventos (get_events_df())...")
-
-# Se você precisar passar configurações, use:
-# config = load_config()
-# df_final = get_events_df(events_config=config["events"])
-
-# Se não precisar de customização, chame sem argumentos:
-df_final = get_events_df()
-
-print(f"\n--- Processo Concluído ---")
-print(f"Total de eventos no DataFrame final (após limpeza): {len(df_final)}")
-if not df_final.empty:
-    print("\nAmostra das primeiras linhas do DataFrame:")
-    print(df_final.head())
-    
-# O log de processamento (eventos carregados, ignorados e retornados) será impresso pelo print_log_file()
+get_athlete_info(105480)
