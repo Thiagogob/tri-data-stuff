@@ -289,7 +289,7 @@ def display_metrics(comparacao):
 
 def main():
     st.set_page_config(layout="wide")
-    st.title(f"Perfil do Atleta: {NOME_ATLETA} 🇧🇷")
+    st.title(f"Perfil do Atleta: {NOME_ATLETA} 🇦🇺")
 
     # Layout em colunas
     col1, col2 = st.columns([1, 2])
@@ -307,7 +307,23 @@ def main():
                 st.image(image_url, caption=NOME_ATLETA, use_container_width=True)
             else:
                 st.warning("Não foi possível carregar a imagem.")
-
+        st.markdown("---")
+        st.subheader("Dados da Carreira")
+        
+        # Define as colunas para as métricas de carreira (3 métricas em uma linha)
+        col_rank, col_podios, col_vitorias = st.columns(3)
+        
+        # Dados Físicos
+        with col_rank:
+            st.metric(label="2025 Ranking", value="#1")
+            
+        with col_podios:
+            st.metric(label="Pódios", value="44")
+            
+        with col_vitorias:
+            st.metric(label="Vitórias", value="31")
+        
+        st.markdown("---") # Separador para as análises calculadas
         if df_medias is not None and not df_medias.empty:
             st.subheader("Análise de Vantagem (vs. Média Geral)")
             comparacao = analyze_advantage(df_medias)
