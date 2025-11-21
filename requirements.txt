@@ -1,0 +1,9 @@
+# requirements.txt
+streamlit
+pandas
+numpy
+plotly
+matplotlib
+scipy
+seaborn
+pathlib # Embora seja nativo, é bom ter certeza de que o Streamlit reconhece o uso
