@@ -4,9 +4,9 @@ from pathlib import Path
 import plotly.express as px
 
 # --- DEFINIÇÕES DE CAMINHO ---
-TOP3_COUNTRIES_CSV = Path("data") / "analysis" / "top3_countries_sede.csv"
-REPRESENTATIVIDADE_CSV = Path("data") / "analysis" / "brasil_representatividade.csv"
-CORRIDA_ANALYSIS_CSV_GLOBAL = Path('data') / "analysis" / "vitorias_na_corrida_global.csv"
+TOP3_COUNTRIES_CSV = Path("csv") / "top3_countries_sede.csv"
+REPRESENTATIVIDADE_CSV = Path("csv") / "brasil_representatividade.csv"
+CORRIDA_ANALYSIS_CSV_GLOBAL = Path('csv') / "vitorias_na_corrida_global.csv"
 
 # --- Configuração e Funções (MANTIDAS) ---
 

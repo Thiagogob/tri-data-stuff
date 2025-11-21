@@ -17,11 +17,11 @@ from utils_itu import get_athlete_info
 # --- DEFINIÇÕES GLOBAIS E FUNÇÕES DE TEMPO ---
 ATHLETE_ID = 105480
 NOME_ATLETA = "MIGUEL HIDALGO"
-MEDIAS_CSV_PATH = Path('data') / "athlete_results" / f"athlete_{ATHLETE_ID}_medias_standard.csv"
-REGRESSION_DATA_CSV = Path('data') / "athlete_results" / "athlete_105480_performance_trend.csv"
+MEDIAS_CSV_PATH = Path('csv') / f"athlete_{ATHLETE_ID}_medias_standard.csv"
+REGRESSION_DATA_CSV = Path('csv') / "athlete_105480_performance_trend.csv"
 
 
-REGRESSION_SUMMARY_JSON = Path('data') / "athlete_results" / f"athlete_{ATHLETE_ID}_regressao_sumario.json"
+REGRESSION_SUMMARY_JSON = Path('csv') / f"athlete_{ATHLETE_ID}_regressao_sumario.json"
 
 # Adicionar a função de carregamento
 def load_regression_summary():
