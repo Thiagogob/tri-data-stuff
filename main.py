@@ -270,14 +270,14 @@ if CORRIDA_ANALYSIS_CSV_GLOBAL.exists():
             label="Tempo Médio T1 (Natação → Bike)",
             value=media_t1
         )
-        st.caption("Tempo médio de transição do 1° e 2° colocados no evento.")
+        st.caption("Tempo médio de transição do 1° e 2° colocados nos evento.")
 
     with col_t2:
         st.metric(
             label="Tempo Médio T2 (Bike → Corrida)",
             value=media_t2
         )
-        st.caption("Tempo médio de transição do 1° e 2° colocados no evento.")
+        st.caption("Tempo médio de transição do 1° e 2° colocados nos evento.")
 
 else:
     st.info("Aguardando dados de análise de estratégia (Vitórias na Corrida).")
