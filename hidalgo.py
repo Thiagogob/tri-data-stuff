@@ -39,8 +39,7 @@ if caminho_scripts not in sys.path:
 
 # Tenta importar todas as funções necessárias (Assumindo que estão no seu utils_itu e utils_events)
 from utils_itu import get_athlete_info, get_athlete_results, get_program_details
-from utils import load_config
-from utils_events import get_events_categories, get_events_specifications
+
 
 
 # --- DEFINIÇÕES GLOBAIS ---
